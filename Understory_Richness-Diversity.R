@@ -131,3 +131,4 @@ ggplot(in_shn_treat) +
   labs(x="", y = "Shannon's Diversity Index") +
   theme_classic() +
   theme(legend.position = "none")
+
