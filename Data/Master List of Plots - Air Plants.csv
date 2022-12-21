@@ -1,0 +1,160 @@
+Habitat Type,Plot,Present or Not,Scientific Name 
+HY,1,Present,TILLUSN
+HY,1,Present,TILLREC
+HY,1,Present,PHLAUR
+HY,1,Present,TILSET
+HY,2,Present,PHLAUR
+HY,3,Present,TILREC
+HY,3,Present,PHLAUR
+HY,4,Present,TILREC
+HY,4,Present,TILUSN
+HY,5,Present,TILREC
+HY,5,Present,PHLAUR
+HY,6,Present,TILUSN
+HY,6,Present,TILSET
+HY,6,Present,TILREC
+HY,6,Present,PLEMIC
+HY,6,Present,PHLAUR
+HY,6,Present,PARQUI
+HY,6,Present,TILBAL
+HY,7,Present,TILREC
+HY,7,Present,TILUSN
+HY,7,Present,TILSET
+HY,8,Present,TILUSN
+HY,9,,
+HY,10,Present,ENCTAM
+HY,10,Present,PLEMIC
+HY,10,Present,TILSET
+HY,10,Present,TILREC
+HY,10,Present,TILUSN
+HY,10,Present,TILSIM
+HY,10,Present,PHLAUR
+HY,10,Present,VITLIN
+HY,11,Present,TILUSN
+HY,11,Present,TILSET
+HY,11,Present,TILREC
+HY,11,Present,TILAUR
+HY,11,Present,VITLIN
+HY,11,Present,PHLAUR
+HY,11,Present,PLEMIC
+HY,11,Present,VITROT
+HY,12,Present,PHLAUR
+HY,12,Present,VITLIN
+HY,12,Present,TILREC
+HY,12,Present,PARQUI
+HY,12,Present,TILSET
+HY,12,Present,TILUSN
+HY,12,Present,PLEMIC
+HY,13,Present,PARQUI
+HY,13,Present,TILUSN
+HY,13,Present,TILREC
+HY,13,Present,PHLAUR
+HY,13,Present,TILSET
+HY,13,Present,PLEMIC
+HY,13,Present,VITLIN
+HY,13,Present,TOXRAD
+HY,14,,
+HY,15,,
+CD,1,Present,TILREC
+CD,1,Present,TILUSN
+CD,1,Present,TILBAL
+CD,1,Present,TILFAS var. DEN
+CD,1,Present,TILSET
+CD,2,Present,TILREC
+CD,2,Present,TILUSN
+CD,2,Present,TILBAL
+CD,2,Present,TILFAS var. DEN
+CD,2,Present,TILSET
+CD,2,Present,PHLAUR
+CD,3,Present,TILREC
+CD,3,Present,TILUSN
+CD,3,Present,TILBAL
+CD,3,Present,TILFAS var. DEN
+CD,3,Present,TILSET
+CD,3,Present,PHLAUR
+CD,4,Present,TILREC
+CD,4,Present,TILUSN
+CD,4,Present,TILBAL
+CD,4,Present,TILFAS var. DEN
+CD,4,Present,TILSET
+CD,4,Present,PHLAUR
+CD,5,Present,TILUSN
+CD,5,Present,TILREC
+CD,5,Present,TILSET
+CD,5,Present,TILBAL
+CD,5,Present,TILFAS var. DEN
+CD,5,Present,DENPOR
+CD,6,,
+CD,7,,
+CD,8,,
+CD,9,,
+CD,10,,
+MF,1,Not,NA
+MF,2,Not,NA
+MF,3,Not,NA
+MF,4,Not,NA
+MF,5,Not,NA
+MF,6,Not,NA
+MF,7,Not,NA
+MF,8,Not,NA
+MF,9,Not,NA
+MF,10,Not,NA
+MF,11,Not,NA
+MF,12,Not,NA
+MF,13,Not,NA
+MF,14,Not,NA
+MF,15,Not,NA
+MF,16,Not,NA
+MF,17,Not,NA
+MF,18,Present,TILREC
+MF,19,Not,NA
+MF,20,Not,NA
+DP,1,Not,NA
+DP,2,Not,NA
+DP,3,Not,NA
+DP,4,,
+DP,5,,
+WP,1,Not,NA
+WP,2,,
+WP,3,,
+WP,4,,
+WP,5,,
+WP,6,,
+WP,7,,
+WP,8,,
+WP,9,,
+WP,10,,
+WP,11,,
+WP,12,Not,NA
+WP,13,Not,NA
+WP,14,Not,NA
+WP,15,Not,NA
+WP,16,,
+WP,17,,
+WP,18,,
+WP,19,,
+WP,20,,
+SF,1,Present  ,TILSET
+SF,1,Present  ,TILREC
+SF,1,Present  ,TILUSN
+SF,2,Present,TILUSN
+SF,2,Present,TILREC
+SF,3,Present  ,TILREC
+SF,3,Present  ,TILSET
+SF,3,Present  ,TILUSN
+SF,4,Present  ,TILREC
+SF,4,Present  ,TILSET
+SF,4,Present  ,TILUSN
+SF,4,Present  ,PLEMIC
+SF,5,Present  ,TILSET
+SF,5,Present  ,TILREC
+SF,5,Present  ,TILUSN
+SF,6,PRESENT  ,PHLAUR
+SF,7,Present  ,TILSET
+SF,7,Present,TILREC
+SF,8,Present  ,TILSET
+SF,8,Present,TILREC
+SF,9,Not,NA
+SF,10,Present,TILREC
+SF,10,Present,TILSET
+SF,10,Present,TILUSN

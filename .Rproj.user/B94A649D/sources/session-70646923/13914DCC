@@ -1,0 +1,26 @@
+{
+    "id": "13914DCC",
+    "path": "~/DeLuca_Ranch/Scripts/Overstory_DBH_Height.R",
+    "project_path": "Scripts/Overstory_DBH_Height.R",
+    "type": "r_source",
+    "hash": "1328231261",
+    "contents": "",
+    "dirty": false,
+    "created": 1671657646245.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "141,0",
+        "scrollLine": "113"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1671658293,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1671658293306,
+    "read_only": false,
+    "read_only_alternatives": []
+}
