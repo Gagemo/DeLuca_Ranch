@@ -1,12 +1,19 @@
-############################ Installs Packages if Needed #####################################################
+################################################################################
+################################################################################
+################### DeLuca  - Shrub           ##################################
+################### By: Gage LaPierre         ##################################
+################################################################################
+################################################################################
 
-list.of.packages <- c("ggplot2", "tidyverse", "agricolae", "labelled", "vegan", "labdsv")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+###################### Installs Packages if Needed #############################
+
+list.of.packages <- c("tidyverse", "agricolae", "labelled", "vegan", "labdsv")
+new.packages <- list.of.packages[!(list.of.packages %in% 
+                                     installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-############################ Loads Packages  #####################################################
+############################ Loads Packages  ###################################
 
-library(ggplot2)
 library(tidyverse)
 library(vegan)
 library(agricolae)
@@ -20,8 +27,6 @@ rm(list=ls(all=TRUE))
 cat("\014") 
 
 set.seed(2)
-
-######################################## Shrub Cover ###############################################################
 
 ### Load Data ###
 shrub <- read.csv("Data/Master List of Plots - Shrub Cover.csv")
@@ -58,6 +63,8 @@ Shrub_Cover_Box =
 ggplot(shrub, aes(x = habitat, y = X..Cover, fill = habitat)) + 
   geom_boxplot() +
   geom_jitter(alpha = 0.6, position=position_jitter(0.2)) +
+  scale_fill_manual(values=c("#CC9900", "#660066", "#CC0000",
+                                      "#FF66FF"))+
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
@@ -65,30 +72,13 @@ ggplot(shrub, aes(x = habitat, y = X..Cover, fill = habitat)) +
 Shrub_Cover_Box
 ggsave("Figures/Shrub_Cover_Box.png")
 
-
-ggplot(shrub, aes(x = Species, y = X..Cover, color = habitat)) + 
-  geom_boxplot() +
-  geom_jitter(alpha = 0.6, position=position_jitter(0.1)) +
-  theme_classic(base_size = 14) +
-  guides(color=guide_legend(title="Habitat")) +
-  xlab("Species") +
-  ylab("Shrub Cover %")
-
-ggplot(shrub, aes(x = habitat, y = X..Cover, fill = habitat)) + 
-  stat_summary(geom = "bar", fun = mean, width = 0.6, color = "gray50") +
-  geom_errorbar(stat = "summary", width = 0.5) +
-  geom_point(stat = "summary") +
-  geom_jitter(alpha = 0.6, position=position_jitter(0.2)) +
-  theme_classic(base_size = 14) +
-  theme(legend.position = "none") +
-  xlab("Habitat") +
-  ylab("Shrub Cover %")
-
 ### shrub Height Plots ##
 Shrub_Heights_Box =
 ggplot(shrub, aes(x = habitat, y = Avg..Height, fill = habitat)) + 
   geom_boxplot() +
   geom_jitter(alpha = 0.6, position=position_jitter(0.2)) +
+  scale_fill_manual(values=c("#CC9900", "#660066", "#CC0000",
+                                      "#FF66FF")) +
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
@@ -96,21 +86,24 @@ ggplot(shrub, aes(x = habitat, y = Avg..Height, fill = habitat)) +
 Shrub_Heights_Box
 ggsave("Figures/Shrub_Heights_Box.png")
 
-ggplot(shrub, aes(x = Species, y = Avg..Height, color = habitat)) + 
-  geom_boxplot() +
-  geom_jitter(alpha = 0.6, position=position_jitter(0.1)) +
-  theme_classic(base_size = 14) +
-  guides(color=guide_legend(title="Habitat")) +
-  xlab("Species") +
-  ylab("Shrub Height (m)")
+####################### Species Richness - Shrub Data ##########################
 
-ggplot(shrub, aes(x = habitat, y = Avg..Height, fill = habitat)) + 
-  stat_summary(geom = "bar", fun = mean, width = 0.6, color = "gray50") +
-  geom_errorbar(stat = "summary", width = 0.5) +
-  geom_point(stat = "summary") +
-  theme_classic(base_size = 14) +
-  theme(legend.position = "none") +
-  xlab("Habitat") +
-  ylab("Average Shrub Height (m)")
+table_SR <- table(shrub$Species, shrub$habitat)
+table_SR 
 
+SR = specnumber(table_SR , MARGIN=2)
+SR = as.data.frame(SR)
+write.table(SR, ("Figures/ShrubData_SR"))
 
+SR <- rownames_to_column(SR, "habitat")
+
+SR_ShrubData_Box = 
+  ggplot(SR) +
+  geom_boxplot(aes(x = habitat, y = SR, fill  = habitat)) +
+  scale_fill_manual(values=c("#CC9900", "#660066", "#CC0000",
+                                      "#FF66FF"))+
+  labs(x="", y = "# of Shrub Species Recorded") +
+  theme_classic() +
+  theme(legend.position = "none")
+SR_ShrubData_Box
+ggsave("Figures/SR_ShrubData_Box.png")

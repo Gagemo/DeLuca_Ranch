@@ -1,12 +1,19 @@
-############################ Installs Packages if Needed #####################################################
+################################################################################
+################################################################################
+################### DeLuca - Canopy Cover ######################################
+################### By: Gage LaPierre     ######################################
+################################################################################
+################################################################################
 
-list.of.packages <- c("ggplot2", "tidyverse", "agricolae", "labelled", "vegan", "labdsv")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+###################### Installs Packages if Needed #############################
+
+list.of.packages <- c("tidyverse", "agricolae", "labelled","vegan", "labdsv")
+new.packages <- list.of.packages[!(list.of.packages 
+                                   %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-############################ Loads Packages  #####################################################
+############################ Loads Packages  ###################################
 
-library(ggplot2)
 library(tidyverse)
 library(vegan)
 library(agricolae)
@@ -20,8 +27,6 @@ rm(list=ls(all=TRUE))
 cat("\014") 
 
 set.seed(2)
-
-######################################## Canopy Cover ###############################################################
 
 ### Load Data ###
 canopy <- read.csv("Data/Master List of Plots - % Canopy Coverage by Plot.csv")

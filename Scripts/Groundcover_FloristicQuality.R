@@ -1,12 +1,19 @@
-############################ Installs Packages if Needed #####################################################
+################################################################################
+################################################################################
+################### DeLuca - Understory - FQA ##################################
+################### By: Gage LaPierre         ##################################
+################################################################################
+################################################################################
 
-list.of.packages <- c("ggplot2", "tidyverse", "agricolae", "labelled", "vegan", "labdsv")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+#################  Installs Packages if Needed #################################
+
+list.of.packages <- c("tidyverse", "agricolae", "labelled", "vegan", "labdsv")
+new.packages <- list.of.packages[!(list.of.packages 
+                                   %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-############################ Loads Packages  #####################################################
+############################ Loads Packages  ###################################
 
-library(ggplot2)
 library(tidyverse)
 library(vegan)
 library(agricolae)
@@ -21,7 +28,7 @@ cat("\014")
 
 set.seed(2)
 
-################### DeLuca Floristic Quality ###############################################################
+################### DeLuca Floristic Quality ###################################
 
 ### Load Data ###
 A_120 <- read.csv("Data/Master List of Plots - 120 A.csv")
@@ -90,7 +97,7 @@ Treat = mutate(Treat, habitat = str_extract(names, "^.{2}")) %>%
   summarise()
 Treat = mutate(Treat, plot = str_extract(names, "^.{3}"))
 
-############################### Species Richness ##############################################
+############################### Species Richness ###############################
 table_SR <- table(sp_data$Species, sp_data$Plot..1mx1m.)
 table_SR 
 
@@ -109,7 +116,7 @@ ggplot(SR_treat) +
   theme_classic() +
   theme(legend.position = "none")
 
-############################### Diversity ################################################
+############################### Diversity ######################################
 simpsons = diversity(Spp, index = "simpson")
 simpsons = as.data.frame(simpsons)
 

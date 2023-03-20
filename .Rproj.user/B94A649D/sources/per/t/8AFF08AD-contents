@@ -1,12 +1,19 @@
-############################ Installs Packages if Needed #####################################################
+################################################################################
+################################################################################
+################### DeLuca Understory - SR-Diversity ###########################
+################### By: Gage LaPierre         ##################################
+################################################################################
+################################################################################
 
-list.of.packages <- c("ggplot2", "tidyverse", "agricolae", "labelled", "vegan", "labdsv")
-new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+################### Installs Packages if Needed ################################
+
+list.of.packages <- c("tidyverse", "agricolae", "labelled", "vegan", "labdsv")
+new.packages <- list.of.packages[!(list.of.packages 
+                                   %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
-############################ Loads Packages  #####################################################
+############################ Loads Packages  ###################################
 
-library(ggplot2)
 library(tidyverse)
 library(vegan)
 library(agricolae)
@@ -21,7 +28,7 @@ cat("\014")
 
 set.seed(2)
 
-################### DeLuca Floristic Quality ###############################################################
+############ DeLuca Understory Species Richness/Diversity ######################
 
 ### Load Data ###
 A_120 <- read.csv("Data/Master List of Plots - 120 A.csv")
@@ -57,30 +64,9 @@ sp_data = filter(data, !grepl('Bare ground', Species)) %>%
   filter(!grepl('CWD', Species)) %>%
   filter(!grepl('Leaf material', Species))
 
-### Load in C-Value Data ###
-C_Values = read.csv("Data/C-Values_SouthFL - C-Values.csv")
-DeLuca_List = read.csv("Data/C-Values_SouthFL - DeLuca_Floristic_Data_Query_Cro.csv")
-
-DeLuca_List = subset(DeLuca_List, select = -c(Scientific_Name) )
-colnames(DeLuca_List)[3] <- "Scientific_Name"
-
-
-C_DeLuca <- merge(DeLuca_List, C_Values, by.x = "Scientific_Name", all.x = TRUE) %>%
-  filter(Acronym != "NA")
-C_DeLuca$Acronym = toupper(C_DeLuca$Acronym)
-
-colnames(sp_data)[2] <- "Acronym"
-
-CC = merge(sp_data, C_DeLuca, by.x = "Acronym", all.x = TRUE)
-write.csv(C_DeLuca, "Data/gk.csv")
-sum(is.na(C_DeLuca$C.Value))
-
 # Create Species Pivot Table #
 Spp = dplyr::select(sp_data, Plot..1mx1m., Species, X..Cover) %>% matrify() 
 Spp[] <- lapply(Spp, as.numeric)
-
-# Drop first column in spp data for vegdist #
-Spp <- subset(Spp, select = -1 )
 
 # Create Grouped Treatment/ Environment Table and Summaries to fit Species Table #
 Treat <- data.frame("names"=rownames(Spp), Spp)
@@ -90,7 +76,7 @@ Treat = mutate(Treat, habitat = str_extract(names, "^.{2}")) %>%
   summarise()
 Treat = mutate(Treat, plot = str_extract(names, "^.{3}"))
 
-############################### Species Richness ##############################################
+################### Species Richness ###########################################
 table_SR <- table(sp_data$Species, sp_data$Plot..1mx1m.)
 table_SR 
 
@@ -101,15 +87,42 @@ SR = as.data.frame(SR)
 SR_treat = cbind(Treat, SR) 
 
 ## Species Richness Boxplot ##
-ggplot(SR_treat) +
-  geom_boxplot(aes(x = habitat, y = SR, color  = habitat)) +
+SR_Box = 
+  ggplot(SR_treat) +
+  geom_boxplot(aes(x = habitat, y = SR, fill  = habitat)) +
   geom_jitter(aes(x = habitat, y = SR),
               color="black", size=0.4, alpha=0.9) +
+  scale_fill_manual(values=c("#CC9900", "#FFFF66", "#660066", "#CC0000",
+                                      "#FF66FF", "#66FFFF"))+
   labs(x="", y = "Species Richness") +
   theme_classic() +
   theme(legend.position = "none")
+SR_Box
+ggsave("Figures/SR_Box.png")
 
-############################### Diversity ################################################
+##################### Total SR Per Habitat #####################################
+table_SR_Hab <- table(sp_data$Species, sp_data$habitat)
+table_SR_Hab 
+
+SR_Hab = specnumber(table_SR_Hab , MARGIN=2)
+SR_Hab = as.data.frame(SR_Hab)
+SR_Hab <- rownames_to_column(SR_Hab, "Habitat")
+colnames(SR_Hab) <- c("Habitat", "Count")
+
+## Species Richness Boxplot ##
+SR_Box = 
+  ggplot(SR_Hab, aes(x = Habitat, y = Count, fill  = Habitat)) +
+  geom_bar(stat = "identity", color="black") +
+  scale_fill_manual(values=c("#CC9900", "#FFFF66", "#660066", "#CC0000",
+                                      "#FF66FF", "#66FFFF"))+
+  labs(x="", y = "Species Richness") +
+  theme_classic() +
+  theme(legend.position = "none")
+SR_Box
+ggsave("Figures/SR_Total_Habitat.png")
+
+##################### Diversity ################################################
+
 simpsons = diversity(Spp, index = "simpson")
 simpsons = as.data.frame(simpsons)
 
@@ -125,29 +138,46 @@ shn_treat = cbind(Treat, shannon)
 in_shn_treat = cbind(Treat, inv_shan) 
 
 ## Simpsons Boxplot ##
+Simp_Box = 
 ggplot(simp_treat) +
-  geom_boxplot(aes(x = habitat, y = simpsons, color  = habitat)) +
+  geom_boxplot(aes(x = habitat, y = simpsons, fill  = habitat)) +
   geom_jitter(aes(x = habitat, y = simpsons),
               color="black", size=0.4, alpha=0.9) +
+  scale_fill_manual(values=c("#CC9900", "#FFFF66", "#660066", "#CC0000",
+                                      "#FF66FF", "#66FFFF"))+
   labs(x="", y = "Shannon's Diversity Index") +
+  ylim(0, 1.25) +
   theme_classic() +
   theme(legend.position = "none")
+Simp_Box
+ggsave("Figures/Simp_Box.png")
 
 ## Shannons Boxplot ##
+Shn_Box =
 ggplot(shn_treat) +
-  geom_boxplot(aes(x = habitat, y = shannon, color  = habitat)) +
+  geom_boxplot(aes(x = habitat, y = shannon, fill  = habitat)) +
   geom_jitter(aes(x = habitat, y = shannon),
               color="black", size=0.4, alpha=0.9) +
-  labs(x="", y = "Shannon's Diversity Index") +
+  scale_fill_manual(values=c("#CC9900", "#FFFF66", "#660066", "#CC0000",
+                                      "#FF66FF", "#66FFFF"))+
+  labs(x="", y = "Shannons Diversity Index") +
   theme_classic() +
   theme(legend.position = "none")
+Shn_Box
+ggsave("Figures/Shn_Box.png")
+
 
 ## Inv-Simp Boxplot ##
+
+Inv_simp_Box = 
 ggplot(in_shn_treat) +
-  geom_boxplot(aes(x = habitat, y = inv_shan, color  = habitat)) +
+  geom_boxplot(aes(x = habitat, y = inv_shan, fill  = habitat)) +
   geom_jitter(aes(x = habitat, y = inv_shan),
               color="black", size=0.4, alpha=0.9) +
-  labs(x="", y = "Shannon's Diversity Index") +
+  scale_fill_manual(values=c("#CC9900", "#FFFF66", "#660066", "#CC0000",
+                                      "#FF66FF", "#66FFFF"))+
+  labs(x="", y = "Inverse Simpson's Diversity Index") +
   theme_classic() +
   theme(legend.position = "none")
-
+Inv_simp_Box
+ggsave("Figures/Inv_simp_Box.png")
