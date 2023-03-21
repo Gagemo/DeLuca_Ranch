@@ -63,7 +63,9 @@ ggplot(canopy, aes(x = habitat, y = Bin.Number, fill = habitat)) +
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("Canopy Cover")
+  ylab("Canopy Cover")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 canopy_Box
 ggsave("Figures/canopy_Box.png")
 

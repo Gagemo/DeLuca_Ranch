@@ -51,7 +51,9 @@ ggplot(tree %>% dplyr::filter(DBH..cm. != "NA"),
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("DBH (cm)")
+  ylab("DBH (cm)")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 DBH_Box
 ggsave("Figures/DBH_Box.png")
 
@@ -63,7 +65,9 @@ ggplot(tree %>% dplyr::filter(Species != "NA") %>% subset(habitat=='MF'),
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Species") +
-  ylab("Average DBH (cm)")
+  ylab("Average DBH (cm)")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 MF_DBH_Box
 ggsave("Figures/MF_DBH_Box.png")
 
@@ -78,7 +82,9 @@ ggplot(tree %>% dplyr::filter(DBH..cm. != "NA"),
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("Height (m)")
+  ylab("Height (m)")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Height_Box
 ggsave("Figures/Height_Box.png")
 
@@ -90,7 +96,9 @@ ggplot(tree %>% dplyr::filter(Species != "NA") %>% subset(habitat=='MF'),
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Species") +
-  ylab("Average Height (m)")
+  ylab("Average Height (m)")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 MF_Height
 ggsave("Figures/Height_Box.png")
 
@@ -109,7 +117,9 @@ ggplot(tree %>% dplyr::filter(BA != "NA"),
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("Basal Area "~cm^2)
+  ylab("Basal Area "~cm^2)+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Basal_Box
 ggsave("Figures/Basal_Box.png")
 
@@ -132,6 +142,8 @@ ggplot(tpha, aes(x = habitat, y = tpha, fill = habitat)) +
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("Trees per Hectare")
+  ylab("Trees per Hectare")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 TPHA_Box
 ggsave("Figures/TPHA_Box.png")

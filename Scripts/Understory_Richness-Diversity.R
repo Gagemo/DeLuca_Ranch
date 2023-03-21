@@ -96,7 +96,9 @@ SR_Box =
                                       "#FF66FF", "#66FFFF"))+
   labs(x="", y = "Species Richness") +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  theme(axis.text=element_text(size=14),
+         axis.title=element_text(size=16,face="bold"))
 SR_Box
 ggsave("Figures/SR_Box.png")
 
@@ -117,7 +119,9 @@ SR_Box =
                                       "#FF66FF", "#66FFFF"))+
   labs(x="", y = "Species Richness") +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 SR_Box
 ggsave("Figures/SR_Total_Habitat.png")
 
@@ -148,7 +152,9 @@ ggplot(simp_treat) +
   labs(x="", y = "Shannon's Diversity Index") +
   ylim(0, 1.25) +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Simp_Box
 ggsave("Figures/Simp_Box.png")
 
@@ -162,7 +168,9 @@ ggplot(shn_treat) +
                                       "#FF66FF", "#66FFFF"))+
   labs(x="", y = "Shannons Diversity Index") +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Shn_Box
 ggsave("Figures/Shn_Box.png")
 
@@ -178,6 +186,8 @@ ggplot(in_shn_treat) +
                                       "#FF66FF", "#66FFFF"))+
   labs(x="", y = "Inverse Simpson's Diversity Index") +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Inv_simp_Box
 ggsave("Figures/Inv_simp_Box.png")

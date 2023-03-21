@@ -68,7 +68,9 @@ ggplot(shrub, aes(x = habitat, y = X..Cover, fill = habitat)) +
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("Shrub Cover %")
+  ylab("Shrub Cover %")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Shrub_Cover_Box
 ggsave("Figures/Shrub_Cover_Box.png")
 
@@ -82,7 +84,9 @@ ggplot(shrub, aes(x = habitat, y = Avg..Height, fill = habitat)) +
   theme_classic(base_size = 14) +
   theme(legend.position = "none") +
   xlab("Habitat") +
-  ylab("Average Shrub Height (m)")
+  ylab("Average Shrub Height (m)")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 Shrub_Heights_Box
 ggsave("Figures/Shrub_Heights_Box.png")
 
@@ -104,6 +108,8 @@ SR_ShrubData_Box =
                                       "#FF66FF"))+
   labs(x="", y = "# of Shrub Species Recorded") +
   theme_classic() +
-  theme(legend.position = "none")
+  theme(legend.position = "none")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
 SR_ShrubData_Box
 ggsave("Figures/SR_ShrubData_Box.png")
