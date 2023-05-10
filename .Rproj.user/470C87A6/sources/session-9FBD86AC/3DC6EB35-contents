@@ -1,0 +1,116 @@
+################################################################################
+################################################################################
+################### DeLuca  - Shrub           ##################################
+################### By: Gage LaPierre         ##################################
+################################################################################
+################################################################################
+
+###################### Installs Packages if Needed #############################
+
+list.of.packages <- c("tidyverse", "agricolae", "labelled", "vegan", "labdsv")
+new.packages <- list.of.packages[!(list.of.packages %in% 
+                                     installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+############################ Loads Packages  ###################################
+
+library(tidyverse)
+library(vegan)
+library(agricolae)
+library(labelled)
+library(labdsv)
+
+# Clears environment
+rm(list=ls(all=TRUE))
+
+# Clears history
+cat("\014") 
+
+set.seed(2)
+
+### Load Data ###
+shrub <- read.csv("Data/Master List of Plots - Shrub Cover.csv")
+
+### Add in habitat column & ensure numeric/character values ###
+shrub = mutate(shrub, habitat = str_extract(Plot..r...., "^.{2}")) 
+shrub$Avg..Height = as.numeric(shrub$Avg..Height)
+shrub$X..Cover = as.numeric(shrub$X..Cover)
+shrub$habitat = as.character(shrub$habitat)
+shrub$Plot = as.character(shrub$Plot)
+
+### Remove NA and empty Values ###
+shrub = filter(shrub, X..Cover != "NA") %>%
+  filter(X..Cover != "")
+
+### Reclassify coverage data (X..Cover) from 1-10 scale to percent scale ###
+shrub <- mutate(shrub, X..Cover = case_when(
+  grepl(1, X..Cover) ~ 0.1,
+  grepl(2, X..Cover) ~ 0.5,
+  grepl(3, X..Cover) ~ 1.5,
+  grepl(4, X..Cover) ~ 3.5,
+  grepl(5, X..Cover) ~ 7.5,
+  grepl(6, X..Cover) ~ 17.5,
+  grepl(7, X..Cover) ~ 37.5,
+  grepl(8, X..Cover) ~ 62.5,
+  grepl(9, X..Cover) ~ 85,
+  grepl(10, X..Cover) ~ 97.5
+))
+
+shrub = na.omit(shrub)
+  
+### shrub Cover Plots ##
+Shrub_Cover_Box = 
+ggplot(shrub, aes(x = habitat, y = X..Cover, fill = habitat)) + 
+  geom_boxplot() +
+  geom_jitter(alpha = 0.6, position=position_jitter(0.2)) +
+  scale_fill_manual(values=c("#CC9900", "#660066", "#CC0000",
+                                      "#FF66FF"))+
+  ylim(0, 100) +
+  theme_classic(base_size = 14) +
+  theme(legend.position = "none") +
+  xlab("Habitat") +
+  ylab("Shrub Cover %")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
+Shrub_Cover_Box
+ggsave("Figures/Shrub_Cover_Box.png")
+
+### shrub Height Plots ##
+Shrub_Heights_Box =
+ggplot(shrub, aes(x = habitat, y = Avg..Height, fill = habitat)) + 
+  geom_boxplot() +
+  geom_jitter(alpha = 0.6, position=position_jitter(0.2)) +
+  scale_fill_manual(values=c("#CC9900", "#660066", "#CC0000",
+                                      "#FF66FF")) +
+  theme_classic(base_size = 14) +
+  theme(legend.position = "none") +
+  xlab("Habitat") +
+  ylab("Average Shrub Height (m)")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
+Shrub_Heights_Box
+ggsave("Figures/Shrub_Heights_Box.png")
+
+####################### Species Richness - Shrub Data ##########################
+
+table_SR <- table(shrub$Species, shrub$habitat)
+table_SR 
+
+SR = specnumber(table_SR , MARGIN=2)
+SR = as.data.frame(SR)
+write.table(SR, ("Figures/ShrubData_SR"))
+
+SR <- rownames_to_column(SR, "habitat")
+
+SR_ShrubData_Box = 
+  ggplot(SR) +
+  geom_boxplot(aes(x = habitat, y = SR, fill  = habitat)) +
+  scale_fill_manual(values=c("#CC9900", "#660066", "#CC0000",
+                                      "#FF66FF"))+
+  labs(x="", y = "# of Shrub Species Recorded") +
+  theme_classic() +
+  theme(legend.position = "none")+
+  theme(axis.text=element_text(size=14),
+        axis.title=element_text(size=16,face="bold"))
+SR_ShrubData_Box
+ggsave("Figures/SR_ShrubData_Box.png")
